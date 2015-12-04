@@ -1,7 +1,10 @@
+#! /usr/bin/env python
+
 s = """
 ()
 """
-# This is just part2
+
+# Only for part 2
 
 floor = 0
 index = 0

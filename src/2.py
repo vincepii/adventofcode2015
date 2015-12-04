@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+
 input = """
 10x9x8
 """
