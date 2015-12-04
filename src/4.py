@@ -10,7 +10,7 @@ STARTHASH='000000'
 iteration_results = Manager().list()
 
 
-def checkhash(lock, start, end):
+def checkhash(start, end):
     for i in range(start, end):
         s = gethash(INPUT + str(i))
         if s.startswith('000000'):
@@ -26,18 +26,15 @@ if __name__ == '__main__':
     while True:
         processes = []
         for i in range(0, MAX_PROC):
-            p = Process(target=checkhash, args=(l, rangestart + STEP * i, rangestart + STEP * (i + 1)))
+            p = Process(target=checkhash, args=(rangestart + STEP * i, rangestart + STEP * (i + 1)))
             processes.append(p)
             p.start()
         # Synchronize with the processes
         for p in processes:
             p.join()
         # Check if some process found a result
-        l.acquire()
         if len(iteration_results) > 0:
             print min(iteration_results)
-            l.release()
             break
-        l.release()
         # Prepare the next iteration
         rangestart = rangestart + MAX_PROC * STEP
